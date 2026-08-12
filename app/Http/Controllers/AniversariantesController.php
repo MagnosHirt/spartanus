@@ -23,7 +23,7 @@ class AniversariantesController extends Controller
      */
     public function create()
     {
-        //
+         return view('aniversariantes.create');
     }
 
     /**
@@ -31,7 +31,16 @@ class AniversariantesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'data_nascimento' => 'required|date',
+        ]);
+
+        Aniversariante::create([
+            'nome' => $request->nome,
+            'aniversario' => $request->data_nascimento,
+        ]);
+        return redirect()->route('aniversariantes')->with('success', 'Aniversariante criado com sucesso!');
     }
 
     /**
@@ -47,7 +56,8 @@ class AniversariantesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $aniversariante = Aniversariante::findOrFail($id);
+        return view('aniversariantes.edit', compact('aniversariante'));
     }
 
     /**
@@ -55,7 +65,18 @@ class AniversariantesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'data_nascimento' => 'required|date',
+        ]);
+
+        $aniversariante = Aniversariante::findOrFail($id);
+        $aniversariante->update([
+            'nome' => $request->nome,
+            'aniversario' => $request->data_nascimento,
+        ]);
+
+        return redirect()->route('aniversariantes')->with('success', 'Aniversariante atualizado com sucesso!');
     }
 
     /**
@@ -63,6 +84,15 @@ class AniversariantesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $aniversariante = Aniversariante::findOrFail($id);
+        $aniversariante->delete();
+
+        return redirect()->route('aniversariantes')->with('success', 'Aniversariante removido com sucesso!');
+    }
+
+    public function dashboard()
+    {
+        $aniversariantesDoMes = Aniversariante::whereMonth('aniversario', now()->month)->get();
+        return view('dashboard', compact('aniversariantesDoMes'));
     }
 }

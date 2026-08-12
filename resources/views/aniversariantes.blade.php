@@ -1,17 +1,32 @@
 <x-layouts::app :title="__('Aniversariantes')">
-    <div class="flex h-full w-full flex-1 flex-col items-center gap-6 rounded-xl">
-        <div class="w-full max-w-2xl">
-            <flux:heading size="xl" level="1">{{ __('Aniversariantes') }}</flux:heading>
-            <flux:subheading size="lg">{{ __('Lista de aniversariantes cadastrados') }}</flux:subheading>
+    <div class="flex h-full flex-1 flex-col items-center gap-6 items-center rounded-xl">
+        <div class="flex w-full max-w-2xl items-end justify-between gap-4">
+            <div>
+                <flux:heading size="xl" level="1">{{ __('Aniversariantes') }}</flux:heading>
+                <flux:subheading size="lg">{{ __('Lista de aniversariantes cadastrados') }}</flux:subheading>
+            </div>
+            <flux:button
+                variant="primary"
+                size="sm"
+                icon="plus"
+                class="cursor-pointer hover:scale-105"
+                href="{{ route('aniversariantes.create') }}"
+            >
+                {{ __('Adicionar Aniversariante') }}
+            </flux:button>
         </div>
-
-        <flux:table striped class="w-full max-w-2xl">
+        @if (session('success'))
+            <flux:callout icon="check-circle" color="green" class="w-full max-w-2xl">
+                {{ session('success') }}
+            </flux:callout>
+        @endif
+        <flux:table striped container:class="w-full max-w-2xl">
             <flux:table.columns>
                 <flux:table.column>{{ __('Nome') }}</flux:table.column>
                 <flux:table.column>{{ __('Aniversário') }}</flux:table.column>
                 <flux:table.column align="end">{{ __('Idade') }}</flux:table.column>
+                <flux:table.column align="end">{{ __('Ações') }}</flux:table.column>
             </flux:table.columns>
-
             <flux:table.rows>
                 @forelse ($aniversariantes as $aniversariante)
                     <flux:table.row :key="$aniversariante->id">
@@ -29,10 +44,21 @@
                                 {{ floor($aniversariante->idade) }}
                             </flux:badge>
                         </flux:table.cell>
+                        <flux:table.cell align="end">
+                            <flux:button
+                                size="sm"
+                                variant="ghost"
+                                icon="pencil-square"
+                                class="cursor-pointer border border-zinc-200 hover:bg-zinc-50"
+                                href="{{ route('aniversariantes.edit', $aniversariante->id) }}"
+                            >
+                                {{ __('Editar') }}
+                            </flux:button>
+                        </flux:table.cell>
                     </flux:table.row>
                 @empty
                     <flux:table.row>
-                        <flux:table.cell colspan="2" class="text-center text-zinc-500">
+                        <flux:table.cell colspan="4" class="text-center text-zinc-500">
                             {{ __('Nenhum aniversariante cadastrado.') }}
                         </flux:table.cell>
                     </flux:table.row>
