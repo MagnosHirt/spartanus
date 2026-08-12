@@ -13,14 +13,14 @@
                 @method('PUT')
                 <flux:input label="Nome" name="nome" class="m-2" value="{{ $aniversariante->nome }}" />
                 <flux:input label="Data de Nascimento" class="m-2" name="data_nascimento" type="date" value="{{ $aniversariante->aniversario->format('Y-m-d') }}" />
-                <flux:button type="submit" class="m-2">Salvar</flux:button>
+                <flux:button type="submit" class="m-2 bg-red-500 hover:bg-green-600 cursor-pointer" icon="save">Salvar</flux:button>
                 
-                <flux:button type="button" class="m-2 cursor-pointer" onclick="window.location='{{ route('aniversariantes') }}'">Cancelar</flux:button>
+                <flux:button type="button" class="m-2 bg-red-500 hover:bg-yellow-600 cursor-pointer" onclick="window.location='{{ route('aniversariantes') }}'" icon="x-mark">Cancelar</flux:button>
             </form>
             <form action="{{ route('aniversariantes.destroy', $aniversariante->id) }}" method="POST" onsubmit="return confirm('{{ __('Tem certeza que deseja remover este aniversariante?') }}')">
                 @csrf
                 @method('DELETE')
-                <flux:button type="submit" class="m-2 bg-red-500 hover:bg-red-600 cursor-pointer">Deletar</flux:button>
+                <flux:button type="submit" class="m-2 bg-red-500 hover:bg-red-600 cursor-pointer" icon="trash">Deletar</flux:button>
             </form>
         </div>
     </div>
