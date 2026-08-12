@@ -1,8 +1,8 @@
 <?php
-use App\Models\Aniversariante;
+
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Aniversariante;
 use Illuminate\Database\Seeder;
 
 class AniversariantesSeeder extends Seeder
@@ -12,9 +12,8 @@ class AniversariantesSeeder extends Seeder
      */
     public function run(): void
     {
-       User::factory()->create([
-            'name' => 'Test User',
-            'aniversario' => ,
+        Aniversariante::factory()->create([
+            'nome' => 'Test User',
         ]);
     }
 }

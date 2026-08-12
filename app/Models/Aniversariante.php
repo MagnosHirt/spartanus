@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Database\Factories\AniversarianteFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Aniversariante extends Model
 {
+    /** @use HasFactory<AniversarianteFactory> */
     use HasFactory;
 
     protected $fillable = [
@@ -19,6 +21,9 @@ class Aniversariante extends Model
         'aniversario' => 'date',
     ];
 
+    /**
+     * @return Attribute<int, never>
+     */
     protected function idade(): Attribute
     {
         return Attribute::make(
