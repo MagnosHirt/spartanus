@@ -57,7 +57,7 @@ new class extends Component {
             $this->qrCodeSvg = $user->twoFactorQrCodeSvg();
             $this->manualSetupKey = decrypt($user->two_factor_secret);
         } catch (Exception) {
-            $this->addError('setupData', 'Failed to fetch setup data.');
+            $this->addError('setupData', 'Falha ao buscar dados de configuração.');
 
             $this->reset('qrCodeSvg', 'manualSetupKey');
         }
@@ -194,7 +194,7 @@ new class extends Component {
                             name="code"
                             wire:model="code"
                             length="6"
-                            label="OTP Code"
+                            label="Código OTP"
                             label:sr-only
                             class="mx-auto"
                         />

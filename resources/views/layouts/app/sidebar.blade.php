@@ -17,6 +17,13 @@
                     </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
+            <flux:sidebar.nav>
+                <flux:sidebar.group :heading="__('Exercício')" class="grid">
+                    <flux:sidebar.item icon="user-plus" :href="route('aniversariantes')" :current="request()->routeIs('aniversariantes')" wire:navigate>
+                        {{ __('Aniversariantes') }}
+                    </flux:sidebar.item>
+                </flux:sidebar.group>
+            </flux:sidebar.nav>
 
             <flux:spacer />
 
