@@ -7,21 +7,20 @@
             </div>
             
         </div>
-        <div class="card items-start w-full max-w-2xl gap-4 p-6">
-            <form action="{{ route('aniversariantes.update', $aniversariante->id) }}" method="POST" class="flex flex-col gap-4">
+        <div class="card flex flex-col items-center w-full max-w-2xl gap-4 p-6">
+            <form id="update-form" action="{{ route('aniversariantes.update', $aniversariante->id) }}" method="POST" class="flex flex-col gap-4 w-full">
                 @csrf
                 @method('PUT')
-                <flux:input label="Nome" name="nome" class="m-2" value="{{ $aniversariante->nome }}" />
-                <flux:input label="Data de Nascimento" class="m-2" name="data_nascimento" type="date" value="{{ $aniversariante->aniversario->format('Y-m-d') }}" />
-                <flux:button type="submit" class="m-2 bg-red-500 hover:bg-green-600 cursor-pointer" icon="save">Salvar</flux:button>
-                
-                <flux:button type="button" class="m-2 bg-red-500 hover:bg-yellow-600 cursor-pointer" onclick="window.location='{{ route('aniversariantes') }}'" icon="x-mark">Cancelar</flux:button>
+                <flux:input label="Nome" name="nome" value="{{ $aniversariante->nome }}" />
+                <flux:input label="Data de Nascimento" name="data_nascimento" type="date" value="{{ $aniversariante->aniversario->format('Y-m-d') }}" />
             </form>
-            <form action="{{ route('aniversariantes.destroy', $aniversariante->id) }}" method="POST" onsubmit="return confirm('{{ __('Tem certeza que deseja remover este aniversariante?') }}')">
-                @csrf
-                @method('DELETE')
-                <flux:button type="submit" class="m-2 bg-red-500 hover:bg-red-600 cursor-pointer" icon="trash">Deletar</flux:button>
-            </form>
+            <form id="destroy-form" action="{{ route('aniversariantes.destroy', $aniversariante->id) }}" method="POST" onsubmit="return confirm('{{ __('Tem certeza que deseja remover este aniversariante?') }}')"></form>
+
+            <div class="flex items-center gap-2">
+                <flux:button form="update-form" type="submit" size="sm" class="cursor-pointer bg-green-500 hover:bg-green-600" icon="check">Salvar</flux:button>
+                <flux:button type="button" size="sm" class="cursor-pointer" onclick="window.location='{{ route('aniversariantes') }}'" icon="x-mark">Cancelar</flux:button>
+                <flux:button form="destroy-form" type="submit" size="sm" class="cursor-pointer bg-red-500 hover:bg-red-600" icon="trash">Deletar</flux:button>
+            </div>
         </div>
     </div>
 </x-layouts::app>
